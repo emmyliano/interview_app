@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_theme.dart';
-import '../auth/presentation/login_screen.dart';
-import '../transactions/presentation/transactions_list.dart';
 import '../wallet/presentation/home_screen.dart';
 import 'placeholder_screen.dart';
 
