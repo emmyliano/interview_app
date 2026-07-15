@@ -14,16 +14,18 @@ class MockAuthRepository implements AuthRepository {
   Future<Result<User>> login(String email, String password) async {
     await Future<void>.delayed(const Duration(milliseconds: 400));
 
-    if (email.trim().toLowerCase() == 'akemuemmy@gmail.com' &&
-        password.trim().length >= 4) {
-      return Success(User(
-        id: 'demo-user',
-        name: 'Emmanuel',
-        email: email.trim(),
-      ));
+    final trimmedEmail = email.trim();
+    final trimmedPassword = password.trim();
+
+    if (trimmedEmail.isEmpty || trimmedPassword.length < 4) {
+      return const Failure('Please provide a valid email and password.');
     }
 
-    return const Failure('Invalid credentials. Please try demo@moniehub.com.');
+    return Success(User(
+      id: trimmedEmail,
+      name: 'User',
+      email: trimmedEmail,
+    ));
   }
 
   @override

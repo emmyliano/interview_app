@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_theme.dart';
+import '../../core/theme/app_theme.dart';
 import '../wallet/presentation/home_screen.dart';
 import 'placeholder_screen.dart';
 
@@ -12,9 +12,9 @@ class AppShell extends StatefulWidget {
 }
 
 class _AppShellState extends State<AppShell> {
-  int _index = 0;
+  int _selectedIndex = 0;
 
-  final List<Widget> _pages = const [
+  static const List<Widget> _pages = [
     HomeScreen(),
     PlaceholderScreen(title: 'Services'),
     PlaceholderScreen(title: 'Wallets'),
@@ -22,14 +22,16 @@ class _AppShellState extends State<AppShell> {
     PlaceholderScreen(title: 'Account'),
   ];
 
+  void _onItemTapped(int index) => setState(() => _selectedIndex = index);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _index, children: _pages),
+      body: IndexedStack(index: _selectedIndex, children: _pages),
       bottomNavigationBar: NavigationBar(
         backgroundColor: AppTheme.panelColor,
-        selectedIndex: _index,
-        onDestinationSelected: (value) => setState(() => _index = value),
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: _onItemTapped,
         destinations: const [
           NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.widgets_outlined), label: 'Services'),
