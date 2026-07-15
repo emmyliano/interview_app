@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (result is Success<User>) {
-      final user = (result as Success<User>).value;
+      final user = result.value;
       await session.login(user);
       if (!mounted) {
         return;
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     } else if (result is Failure<User>) {
       setState(() {
-        _errorMessage = (result as Failure<User>).message;
+        _errorMessage = result.message;
       });
     }
   }
