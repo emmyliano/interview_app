@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:interview_app/core/models/user.dart';
 import 'package:provider/provider.dart';
 
 import '../../../app_session.dart';
@@ -56,18 +57,17 @@ class _LoginScreenState extends State<LoginScreen> {
       _isSubmitting = false;
     });
 
-    if (result is Success) {
-      await session.login(result.value);
+    if (result is Success<User>) {
+      final user = (result as Success<User>).value;
+      await session.login(user);
       if (!mounted) {
         return;
       }
       Navigator.of(context).pushReplacementNamed('/home');
       return;
-    }
-
-    if (result is Failure) {
+    } else if (result is Failure<User>) {
       setState(() {
-        _errorMessage = result.message;
+        _errorMessage = (result as Failure<User>).message;
       });
     }
   }
